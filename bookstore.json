@@ -1,0 +1,32 @@
+PUT bookstore
+{
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "book_author": { 
+          "type": "join",
+          "relations": {
+            "book": "author" 
+          }
+        }
+      }
+    }
+  }
+}
+
+PUT bookstore/_doc/1?routing=1
+{
+  "title": "Book title",
+  "book_author": {
+    "name": "book" 
+  }
+}
+
+PUT bookstore/_doc/2?routing=1
+{
+  "name": "Author name",
+  "book_author": {
+    "name": "author", 
+    "parent": "1" 
+  }
+}
